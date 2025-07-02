@@ -2,10 +2,12 @@
 
 /* prettier-ignore */
 export { 
-    faUser,                   // Edit Profile Icon
-    faGear,                   // Settings & Privacy Icon
-    faCircleQuestion,         // Help & Support Icon
-    faMoon,                   // Display & Accessibility Icon
-    faArrowRightFromBracket,  // Logout Icon
+    faChevronLeft,
     faChevronRight
 } from '@fortawesome/free-solid-svg-icons';
+
+/* prettier-ignore */
+export { 
+    faCircle,
+    faCircleDot
+} from '@fortawesome/free-regular-svg-icons';
