@@ -69,13 +69,16 @@ function switchSlides(e) {
         removeLastSlideIndicator();
         carousel.style.transform = `translateX(0px)`;
         leftArrow.classList.add('end');
+        changeActiveCircle(0);
     } else if (e.target.closest(secondCircle)) {
         carousel.style.transform = `translateX(-800px)`;
         removeLastSlideIndicator();
+        changeActiveCircle(-800);
     } else if (e.target.closest(thirdCircle)) {
         removeLastSlideIndicator();
         carousel.style.transform = `translateX(-1600px)`;
         rightArrow.classList.add('end');
+        changeActiveCircle(-1600);
     }
 }
 
