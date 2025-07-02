@@ -10,6 +10,31 @@ leftArrow.addEventListener('click', previousSlide);
 rightArrow.addEventListener('click', nextSlide);
 circles.addEventListener('click', switchSlides);
 
+// Auto plays the slide every 5 seconds
+setInterval(autoPlaySlide, 5000);
+
+function autoPlaySlide() {
+    const carouselXPosition = calculateCarouselPosition();
+    let newCarouselXPosition;
+
+    if (carouselXPosition === 0) {
+        removeLastSlideIndicator();
+        carousel.style.transform = `translateX(${carouselXPosition - 800}px)`;
+        newCarouselXPosition = carouselXPosition - 800;
+    } else if (carouselXPosition === -800) {
+        rightArrow.classList.add('end');
+        carousel.style.transform = `translateX(${carouselXPosition - 800}px)`;
+        newCarouselXPosition = carouselXPosition - 800;
+    } else if (carouselXPosition === -1600) {
+        removeLastSlideIndicator();
+        carousel.style.transform = `translateX(0px)`;
+        leftArrow.classList.add('end');
+        newCarouselXPosition = 0;
+    }
+
+    changeActiveCircle(newCarouselXPosition);
+}
+
 function nextSlide() {
     const carouselXPosition = calculateCarouselPosition();
 
