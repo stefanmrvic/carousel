@@ -21,8 +21,8 @@ function nextSlide() {
 
     const newCarouselXPosition = carouselXPosition - 800;
 
-    console.log(newCarouselXPosition);
     if (newCarouselXPosition === -1600) rightArrow.classList.add('end');
+
     changeActiveCircle(newCarouselXPosition);
 }
 
@@ -37,8 +37,8 @@ function previousSlide() {
 
     const newCarouselXPosition = carouselXPosition + 800;
 
-    console.log(newCarouselXPosition);
     if (newCarouselXPosition === 0) leftArrow.classList.add('end');
+
     changeActiveCircle(newCarouselXPosition);
 }
 
@@ -83,6 +83,10 @@ function switchSlides(e) {
 }
 
 function changeActiveCircle(newCarouselXPosition) {
+    removeActiveCircle();
+
+    const activeIcon = icon(faCircleDot).node[0];
+
     const firstCircle = document.querySelector('.circle--1');
     const firstCircleIcon = firstCircle.querySelector('svg');
 
@@ -91,17 +95,6 @@ function changeActiveCircle(newCarouselXPosition) {
 
     const thirdCircle = document.querySelector('.circle--3');
     const thirdCircleIcon = thirdCircle.querySelector('svg');
-
-    const activeIcon = icon(faCircleDot).node[0];
-    const inactiveIcon = icon(faCircle).node[0];
-
-    const activeCircle = document.querySelector('.active');
-    const activeCircleIcon = activeCircle.querySelector('svg');
-
-    activeCircleIcon.remove();
-    activeCircle.append(inactiveIcon);
-
-    activeCircle.classList.remove('active');
 
     if (newCarouselXPosition === 0) {
         firstCircleIcon.remove();
@@ -116,4 +109,16 @@ function changeActiveCircle(newCarouselXPosition) {
         thirdCircle.append(activeIcon);
         thirdCircle.classList.add('active');
     }
+}
+
+function removeActiveCircle() {
+    const activeCircle = document.querySelector('.active');
+    const activeCircleIcon = activeCircle.querySelector('svg');
+
+    const inactiveIcon = icon(faCircle).node[0];
+
+    activeCircleIcon.remove();
+    activeCircle.append(inactiveIcon);
+
+    activeCircle.classList.remove('active');
 }
