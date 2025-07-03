@@ -42,20 +42,25 @@ function autoPlaySlide() {
 
     changeActiveCircle(newCarouselXPosition);
 
-    setTimeout(() => {
-        isAnimating = false;
-    }, 1000);
+    // Setting event listener on carousel to listen on transition end and then switch isAnimating to false
+    carousel.addEventListener(
+        'transitionend',
+        () => {
+            isAnimating = false;
+        },
+        { once: true }
+    );
 }
 
 function nextSlide() {
+    const carouselXPosition = calculateCarouselPosition();
+
+    if (carouselXPosition === -1600) return;
+
     if (isAnimating) return;
 
     // Setting isAnimating var to prevent carousel from bugging out due to transition of translateX if arrow is pressed in the middle of the animation
     isAnimating = true;
-
-    const carouselXPosition = calculateCarouselPosition();
-
-    if (carouselXPosition === -1600) return;
 
     removeLastSlideIndicator();
 
@@ -67,20 +72,25 @@ function nextSlide() {
 
     changeActiveCircle(newCarouselXPosition);
 
-    setTimeout(() => {
-        isAnimating = false;
-    }, 1000);
+    // Setting event listener on carousel to listen on transition end and then switch isAnimating to false
+    carousel.addEventListener(
+        'transitionend',
+        () => {
+            isAnimating = false;
+        },
+        { once: true }
+    );
 }
 
 function previousSlide() {
+    let carouselXPosition = calculateCarouselPosition();
+
+    if (carouselXPosition === 0) return;
+
     if (isAnimating) return;
 
     // Setting isAnimating var to prevent carousel from bugging out due to transition of translateX if arrow is pressed in the middle of the animation
     isAnimating = true;
-
-    let carouselXPosition = calculateCarouselPosition();
-
-    if (carouselXPosition === 0) return;
 
     removeLastSlideIndicator();
 
@@ -92,10 +102,14 @@ function previousSlide() {
 
     changeActiveCircle(newCarouselXPosition);
 
-    // When setTimeout runs out, it will set isAnimating to false, and thus, allow this function to be ran at start
-    setTimeout(() => {
-        isAnimating = false;
-    }, 1000);
+    // Setting event listener on carousel to listen on transition end and then switch isAnimating to false
+    carousel.addEventListener(
+        'transitionend',
+        () => {
+            isAnimating = false;
+        },
+        { once: true }
+    );
 }
 
 function removeLastSlideIndicator() {
@@ -142,10 +156,14 @@ function switchSlides(e) {
         changeActiveCircle(-1600);
     }
 
-    // When setTimeout runs out, it will set isAnimating to false, and thus, allow this function to be ran at start
-    setTimeout(() => {
-        isAnimating = false;
-    }, 1000);
+    // Setting event listener on carousel to listen on transition end and then switch isAnimating to false
+    carousel.addEventListener(
+        'transitionend',
+        () => {
+            isAnimating = false;
+        },
+        { once: true }
+    );
 }
 
 function changeActiveCircle(newCarouselXPosition) {
