@@ -6,6 +6,9 @@ const leftArrow = document.querySelector('.carousel__left-arrow');
 const rightArrow = document.querySelector('.carousel__right-arrow');
 const circles = document.querySelector('.carousel__circles');
 
+// Declaring isAnimating variable to keep track if carousel transition: translateX animation is running in order to prevent user cutting off animation and causing it to bug out
+let isAnimating = false;
+
 leftArrow.addEventListener('click', previousSlide);
 rightArrow.addEventListener('click', nextSlide);
 circles.addEventListener('click', switchSlides);
@@ -14,6 +17,11 @@ circles.addEventListener('click', switchSlides);
 setInterval(autoPlaySlide, 5000);
 
 function autoPlaySlide() {
+    if (isAnimating) return;
+
+    // Setting isAnimating var to prevent carousel from bugging out due to transition of translateX if arrow is pressed in the middle of the animation
+    isAnimating = true;
+
     const carouselXPosition = calculateCarouselPosition();
     let newCarouselXPosition;
 
@@ -33,9 +41,18 @@ function autoPlaySlide() {
     }
 
     changeActiveCircle(newCarouselXPosition);
+
+    setTimeout(() => {
+        isAnimating = false;
+    }, 1000);
 }
 
 function nextSlide() {
+    if (isAnimating) return;
+
+    // Setting isAnimating var to prevent carousel from bugging out due to transition of translateX if arrow is pressed in the middle of the animation
+    isAnimating = true;
+
     const carouselXPosition = calculateCarouselPosition();
 
     if (carouselXPosition === -1600) return;
@@ -49,9 +66,18 @@ function nextSlide() {
     if (newCarouselXPosition === -1600) rightArrow.classList.add('end');
 
     changeActiveCircle(newCarouselXPosition);
+
+    setTimeout(() => {
+        isAnimating = false;
+    }, 1000);
 }
 
 function previousSlide() {
+    if (isAnimating) return;
+
+    // Setting isAnimating var to prevent carousel from bugging out due to transition of translateX if arrow is pressed in the middle of the animation
+    isAnimating = true;
+
     let carouselXPosition = calculateCarouselPosition();
 
     if (carouselXPosition === 0) return;
@@ -65,6 +91,11 @@ function previousSlide() {
     if (newCarouselXPosition === 0) leftArrow.classList.add('end');
 
     changeActiveCircle(newCarouselXPosition);
+
+    // When setTimeout runs out, it will set isAnimating to false, and thus, allow this function to be ran at start
+    setTimeout(() => {
+        isAnimating = false;
+    }, 1000);
 }
 
 function removeLastSlideIndicator() {
@@ -86,6 +117,11 @@ function switchSlides(e) {
     // If user clicks between the circles, it will return early function call
     if (e.target === circles) return;
 
+    // Setting isAnimating var to prevent carousel from bugging out due to transition of translateX if arrow is pressed in the middle of the animation
+    if (isAnimating) return;
+
+    isAnimating = true;
+
     const firstCircle = '.circle--1';
     const secondCircle = '.circle--2';
     const thirdCircle = '.circle--3';
@@ -105,6 +141,11 @@ function switchSlides(e) {
         rightArrow.classList.add('end');
         changeActiveCircle(-1600);
     }
+
+    // When setTimeout runs out, it will set isAnimating to false, and thus, allow this function to be ran at start
+    setTimeout(() => {
+        isAnimating = false;
+    }, 1000);
 }
 
 function changeActiveCircle(newCarouselXPosition) {
