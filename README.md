@@ -3,6 +3,8 @@
 
 A responsive image carousel built with HTML, SCSS, and vanilla JavaScript.
 
+Live preview: https://stefanmrvic.github.io/carousel/
+
 **Features include:**
 
 * Auto-slide: Images automatically transition at set intervals.
